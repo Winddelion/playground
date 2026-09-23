@@ -8,26 +8,26 @@ import (
 	"strings"
 )
 
-func celcius_to_farenheit(value float32) float32 {
+func CelciusToFarenheit(value float32) float32 {
 	return (value*1.8 + 32)
 }
 
-func farenheit_to_celcius(value float32) float32 {
+func FarenheitToCelcius(value float32) float32 {
 	return ((value - 32) * 5 / 9)
 }
 
-func get_value_to_convert() float64 {
+func GetValueToConvert() float64 {
 	fmt.Printf("Type your value: ")
 	get_scan := bufio.NewScanner(os.Stdin)
 	get_scan.Scan()
 
 	string_input := strings.TrimSpace(get_scan.Text())
-	float_output := str_to_float(string_input)
+	float_output := StrToFloat(string_input)
 
 	return float64(float_output)
 }
 
-func str_to_float(data string) float32 {
+func StrToFloat(data string) float32 {
 	conv_data, err := strconv.ParseFloat(data, 32)
 	if err != nil {
 		fmt.Println("Incorrect input type")
@@ -46,16 +46,16 @@ func main() {
 
 	user_input := strings.TrimSpace(conversion_type.Text())
 
-	choice := int8(str_to_float(user_input))
+	choice := int8(StrToFloat(user_input))
 
 	switch choice {
 	case 1:
-		buffer := get_value_to_convert()
-		fmt.Printf("Farenheit: %v --> Celcius: %v\n", buffer, farenheit_to_celcius(float32(buffer)))
+		buffer := GetValueToConvert()
+		fmt.Printf("Farenheit: %v --> Celcius: %v\n", buffer, FarenheitToCelcius(float32(buffer)))
 
 	case 2:
-		buffer := get_value_to_convert()
-		fmt.Printf("Celcius: %v --> Farenheit: %v\n", buffer, celcius_to_farenheit(float32(buffer)))
+		buffer := GetValueToConvert()
+		fmt.Printf("Celcius: %v --> Farenheit: %v\n", buffer, CelciusToFarenheit(float32(buffer)))
 
 	default:
 		fmt.Println("Incorrect option bruh")
