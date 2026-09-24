@@ -2,7 +2,7 @@ package main
 
 import "testing"
 
-func Test_celcius_to_farenheit(t *testing.T) {
+func TestCelciusToFarenheit(t *testing.T) {
 	const epsilon = 1e-5
 	tests := []struct {
 		name  string
