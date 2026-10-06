@@ -1,9 +1,10 @@
 package main
 
-//TODO:
+//TODO: add multiple pattern handling
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"strings"
 )
@@ -100,6 +101,33 @@ func main() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-	fmt.Printf("%+v\n", *opts)
+	if len(opts.Files) == 0 {
+		fmt.Println("no files given")
+		os.Exit(1)
+	}
+
+	pattern := opts.Patterns[0]
+
+	for _, file := range opts.Files {
+		cfg := SearchConfig{
+			IgnoreCase: opts.IgnoreCase,
+			Invert:     opts.Invert,
+			LineNumber: opts.LineNumber,
+			Pattern:    pattern,
+			FileName:   file,
+		}
+
+		matches, err := Search(cfg)
+		if err != nil {
+			log.Fatalf("search: %s: %v", file, err)
+		}
+		for _, m := range matches {
+			if opts.LineNumber {
+				fmt.Printf("%s:%d:%s\n", file, m.LineNumber, m.MatchedWord)
+			} else {
+				fmt.Printf("%s:%s\n", file, m.MatchedWord)
+			}
+		}
+	}
 
 }
