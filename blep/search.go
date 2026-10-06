@@ -7,8 +7,6 @@ import (
 	"strings"
 )
 
-// logic for search functions
-
 type SearchConfig struct {
 	IgnoreCase bool
 	Invert     bool
